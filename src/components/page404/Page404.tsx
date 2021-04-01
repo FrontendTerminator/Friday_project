@@ -10,7 +10,7 @@ export const Page404 = () => {
 
     return (
         <div className={s.mainBlock}>
-            <h2>Page not found 404</h2>
+            <h2>“We are so sorry, but page not found”</h2>
             <div style={photo404} className={s.image}></div>
         </div>
     )
