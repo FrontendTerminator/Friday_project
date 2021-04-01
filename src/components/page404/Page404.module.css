@@ -1,0 +1,14 @@
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.image {
+    position: relative;
+    height: 300px;
+    width: 200px;
+    background-size: cover;
+    background-position: center;
+}
