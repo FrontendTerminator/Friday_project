@@ -6,7 +6,7 @@ export const Login = () => {
             login
             Max 4.0
             Anton 4.0
-            Koba 1.0
+            Koba 2.0
         </div>
     )
 }
