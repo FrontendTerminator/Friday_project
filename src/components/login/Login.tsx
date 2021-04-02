@@ -4,7 +4,7 @@ export const Login = () => {
     return (
         <div>
             login
-            Max 3.0
+            Max 4.0
         </div>
     )
 }
