@@ -4,7 +4,7 @@ export const Registration = () => {
     return (
         <div>
             registration
-            Anton
+            Max
         </div>
     )
 }
