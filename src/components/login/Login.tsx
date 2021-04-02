@@ -4,7 +4,7 @@ export const Login = () => {
     return (
         <div>
             login
-            Anton
+            Anton2.0
         </div>
     )
 }
