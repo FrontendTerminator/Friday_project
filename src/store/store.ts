@@ -8,7 +8,7 @@ let rootReducer = combineReducers({
     state: reducer
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
