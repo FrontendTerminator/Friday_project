@@ -35,7 +35,7 @@ export const Registration = () => {
     }
 
     return <>
-        {isRegister && <Redirect to={'/profile'}/>}
+        {isRegister && <Redirect to={'/login'}/>}
         <div className={s.container}>
             {status === "loading" ? <div className={s.preloader}><img src={preloader} alt={'Preloader'}/></div> :
                 <div>
