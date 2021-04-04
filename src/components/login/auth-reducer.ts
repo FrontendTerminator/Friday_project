@@ -29,7 +29,7 @@ let initState: InitStateType = {
     isAuthSuccess: false
 }
 
-export const authReducer = (state = initState, action: ActionsType) => {
+export const authReducer = (state = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
         case "friday-project/login/SET_USER_DATA":
             return {
