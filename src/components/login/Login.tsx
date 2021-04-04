@@ -38,6 +38,7 @@ export const Login = () => {
                 ? <Redirect to={PATH.profile}/>
                 : <form name="login" className={style.container}>
                     <h3>Sign in</h3>
+                    <span className={style.loading}>{isLoading && 'Loading...'}</span>
                     <input name='email'
                            type="text"
                            placeholder='email'
