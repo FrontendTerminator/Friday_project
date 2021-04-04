@@ -1,0 +1,55 @@
+.btn {
+    box-shadow: 0 10px 14px -7px #276873;
+    background: #599bb3 linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+    border-radius: 8px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 5px 10px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #3d768a;
+    outline: none;
+}
+
+.btn:hover {
+    background: #408c99 linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+}
+.btn:hover:disabled {
+    background: #aaaaaa;
+    cursor: default;
+}
+
+.btn:active {
+    position: relative;
+    top: 1px;
+}
+
+.btn:disabled {
+    background: #aaaaaa;
+}
+
+.default {
+    background: #408c99 linear-gradient(to bottom, #408c99 100%, #408c99 100%);
+}
+
+.default:hover {
+    background: #599bb3 linear-gradient(to bottom, #599bb3 5%, #599bb3 100%);
+}
+.disabled:hover {
+    background: lightgrey;
+}
+
+
+
+.red {
+    background: red linear-gradient(to bottom, red 100%, red 100%);
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.red:hover {
+    background: #d21212 linear-gradient(to bottom, #d21212 5%, #d21212 100%);
+    text-shadow: 0 1px 0 #ffffff;
+}

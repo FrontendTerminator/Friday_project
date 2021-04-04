@@ -10,7 +10,7 @@ import {NewPassword} from "./components/newPassword/NewPassword";
 import {TestPage} from "./components/testPage/TestPage";
 import {Navigation} from "./components/navigation/Navigation";
 
-const PATH = {
+export const PATH = {
     login: "/login",
     registration: "/registration",
     profile: "/profile",
