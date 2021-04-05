@@ -3,6 +3,7 @@ import SuperInputText from "../superComponents/c1-SuperInputText/SuperInputText"
 import SuperButton from "../superComponents/c2-SuperButton/SuperButton";
 import SuperCheckbox from "../superComponents/c3-SuperCheckbox/SuperCheckbox";
 import s from "./TestPage.module.css"
+import Preloader from "../../common/preloader";
 
 export const TestPage = () => {
 
@@ -42,6 +43,7 @@ export const TestPage = () => {
                     checked={checked}
                     onChange={testOnChange}
                 />
+                <Preloader/>
             </div>
         </div>
     )

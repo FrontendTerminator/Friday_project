@@ -25,11 +25,6 @@
     text-align: center;
 }
 
-/*Preloader IMG*/
-.preloader img {
-    width: 150px;
-    height: 150px;
-}
 
 /*Form Error*/
 .error {

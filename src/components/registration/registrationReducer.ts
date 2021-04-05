@@ -1,10 +1,11 @@
 import {Dispatch} from "react";
 import {ApiRegister} from "../../api/RegistrApi";
+import {loginAPI} from "../../api/auth-api";
 
 let initialState: ReducerStateType = {
     status: "free",
     isRegister: false,
-    error:"",
+    error: "",
 }
 const setStatusAC = (status: TypeStatus) => {
     return {
@@ -54,11 +55,11 @@ export const ReducerRegister = (state: ReducerStateType = initialState, action: 
 export const registerTC = (email: string, password: string) => async (dispatch: Dispatch<ReducerActionType>) => {
     try {
         dispatch(setStatusAC("loading"))
-          await ApiRegister.setRegister(email, password)
+        await ApiRegister.setRegister(email, password)
         dispatch(setStatusAC("success"))
         dispatch(setIsRegisterAC(true))
     } catch (e) {
-        const error:TypeError = e.response.data;
+        const error: TypeError = e.response.data;
         dispatch(setStatusAC("error"))
         dispatch(setErrorAC(error.error))
 
@@ -66,11 +67,17 @@ export const registerTC = (email: string, password: string) => async (dispatch: 
 
 
 }
+export const registrIsAuthTC = () => async (dispatch: Dispatch<ReducerActionType>) => {
+    let result = await loginAPI.authMe()
+    result.data && dispatch(setIsRegisterAC(true))
+
+
+}
 export type TypeStatus = 'free' | 'loading' | 'success' | 'error'
 type ReducerStateType = {
     status: TypeStatus
     isRegister: boolean
-    error:string
+    error: string
 }
 type TypeError = {
     emailRegExp: {}
