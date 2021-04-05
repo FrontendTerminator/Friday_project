@@ -1,0 +1,41 @@
+/*Main container Registration*/
+.container {
+    width: 100%;
+    height: 80vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+/*REGISTRATION*/
+.container h3 {
+    text-align: center;
+}
+
+/*Label Form Registration*/
+.label {
+    text-align: center;
+}
+
+/*Button Form Registration*/
+.button {
+    text-align: center;
+}
+
+/*Preloader IMG*/
+.preloader img {
+    width: 150px;
+    height: 150px;
+}
+
+/*Form Error*/
+.error {
+    position: absolute;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+}
