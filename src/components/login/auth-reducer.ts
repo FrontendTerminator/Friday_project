@@ -1,6 +1,6 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
-import {loginAPI} from "../../api/auth-api";
+import {authAPI} from "../../api/auth-api";
 import {AuthDataType} from "./Login";
 
 export type UserDataType = {
@@ -66,12 +66,15 @@ const setIsAuthSuccess = (value: boolean) => ({type: 'friday-project/login/SET_I
 type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType>
 
+
+
+
 export const signIn = (payload: AuthDataType): ThunkType => async (dispatch: ThunkDispatchType) => {
     try {
         dispatch(setIsLoading(true))
-        let res = await loginAPI.signIn(payload)
-        dispatch(setIsAuthSuccess(true))
+        let res = await authAPI.signIn(payload)
         dispatch(setIsLoading(false))
+        dispatch(setIsAuthSuccess(true))
         dispatch(setUserData(res.data))
     } catch (e) {
         let error = e.response.data.error
@@ -83,9 +86,21 @@ export const signIn = (payload: AuthDataType): ThunkType => async (dispatch: Thu
 export const signOut = (): ThunkType => async (dispatch: ThunkDispatchType) => {
     try {
         dispatch(setIsLoading(true))
-        let res = await loginAPI.signOut()
+        let res = await authAPI.signOut()
         dispatch(setIsLoading(false))
         dispatch(setIsAuthSuccess(false))
+    } catch (e) {
+        let error = e.response.data.error
+        dispatch(setIsLoading(false))
+        dispatch(setError(error))
+    }
+}
+
+export const authMe = (): ThunkType => async (dispatch: ThunkDispatchType) => {
+    try {
+        let res = await authAPI.authMe()
+        dispatch(setIsAuthSuccess(true))
+        dispatch(setUserData(res.data))
     } catch (e) {
         let error = e.response.data.error
         dispatch(setIsLoading(false))

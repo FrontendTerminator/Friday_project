@@ -7,7 +7,7 @@ const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/'
 })
 
-export const loginAPI = {
+export const authAPI = {
     authMe() {
         return instance.post('/auth/me')
     },
