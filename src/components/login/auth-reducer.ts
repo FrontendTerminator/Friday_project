@@ -2,6 +2,7 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {authAPI} from "../../api/auth-api";
 import {AuthDataType} from "./Login";
+import {setIsRegisterAC, TypesetIsRegister} from "../registration/registrationReducer";
 
 export type UserDataType = {
     email: string | null
@@ -64,7 +65,7 @@ const setIsAuthSuccess = (value: boolean) => ({type: 'friday-project/login/SET_I
 
 // Thunks
 type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionsType>
-type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType>
+type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType|TypesetIsRegister>
 
 
 
@@ -86,9 +87,11 @@ export const signIn = (payload: AuthDataType): ThunkType => async (dispatch: Thu
 export const signOut = (): ThunkType => async (dispatch: ThunkDispatchType) => {
     try {
         dispatch(setIsLoading(true))
-        let res = await authAPI.signOut()
+         await authAPI.signOut()
         dispatch(setIsLoading(false))
         dispatch(setIsAuthSuccess(false))
+        dispatch(setIsRegisterAC(false))
+
     } catch (e) {
         let error = e.response.data.error
         dispatch(setIsLoading(false))

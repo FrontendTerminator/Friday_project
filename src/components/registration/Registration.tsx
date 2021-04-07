@@ -42,7 +42,7 @@ export const Registration = () => {
     }
 
     return <>
-        {isRegister && <Redirect to={PATH.profile}/>}
+        {isRegister && <Redirect to={PATH.login}/>}
         <div className={s.container}>
             {status === "loading" ? <Preloader/> :
                 <div>

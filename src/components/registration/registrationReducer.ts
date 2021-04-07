@@ -13,7 +13,7 @@ const setStatusAC = (status: TypeStatus) => {
         status
     } as const
 }
-const setIsRegisterAC = (isRegister: boolean) => {
+export const setIsRegisterAC = (isRegister: boolean) => {
     return {
         type: '/register_reducer/SET_IS_REGISTER',
         isRegister
@@ -87,7 +87,11 @@ type TypeError = {
     isPassValid: boolean
     passwordRegExp: string
 }
-type ReducerActionType =
+
+
+export type TypesetIsRegister = ReturnType<typeof setIsRegisterAC>
+
+export type ReducerActionType =
     | ReturnType<typeof setStatusAC>
-    | ReturnType<typeof setIsRegisterAC>
+    | TypesetIsRegister
     | ReturnType<typeof setErrorAC>
