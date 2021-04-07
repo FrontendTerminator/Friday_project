@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import s from './Registration.module.css'
 import SuperInputText from "../superComponents/c1-SuperInputText/SuperInputText";
-import SuperButton from "../superComponents/c2-SuperButton/SuperButton";
+import SuperButton from "../superComponents/c2-SuperButton/SuperButton1";
 import {useDispatch, useSelector} from "react-redux";
 import {registerTC, registrIsAuthTC, setErrorAC, TypeStatus} from "./registrationReducer";
 import {AppRootStateType} from "../../store/store";
-import {Redirect} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {PATH} from "../../App";
 import Preloader from "../../common/preloader";
+import style from "../login/Login.module.css";
 
 export const Registration = () => {
     const [emailValue, setEmailValue] = useState<string>('')
@@ -48,18 +49,17 @@ export const Registration = () => {
                     <h3>Registration</h3>
                     <form className={s.form}>
                         <div>
-                            <div className={s.label}><label>Email</label></div>
-                            <SuperInputText onChangeText={onChangeTextEmail}
+
+                            <SuperInputText  className={style.input}   placeholder='email' onChangeText={onChangeTextEmail}
                                             value={emailValue}/>
                         </div>
                         <div>
-                            <div className={s.label}><label>Password</label></div>
-                            <SuperInputText type={'password'} onChangeText={onChangePasswordOne}
+
+                            <SuperInputText type={'password'}    placeholder='password'  className={style.input} onChangeText={onChangePasswordOne}
                                             value={passwordOneValue}/>
                         </div>
                         <div>
-                            <div className={s.label}><label>Repeat Password</label></div>
-                            <SuperInputText type={'password'} onChangeText={onChangePasswordTwo}
+                            <SuperInputText type={'password'}   placeholder='password'  className={style.input} onChangeText={onChangePasswordTwo}
                                             value={passwordTwoValue}/>
                         </div>
 
@@ -71,7 +71,12 @@ export const Registration = () => {
                             {error}
                         </div>
                     </form>
+
                 </div>}
+          <div className={s.signIn}>
+              <NavLink to={PATH.login}>Sign in</NavLink>
+          </div>
+
         </div>
     </>
 

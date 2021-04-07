@@ -15,11 +15,15 @@
     text-align: center;
 }
 
-/*Label Form Registration*/
-.label {
-    text-align: center;
+/*Input Form Registration*/
+.input {
+    margin: 5px;
+    height: 40px;
+    width: 250px;
+    border-radius: 7px;
+    border: 1px solid lightgray;
+    padding-left: 10px;
 }
-
 /*Button Form Registration*/
 .button {
     text-align: center;
@@ -33,4 +37,8 @@
     color: red;
     font-weight: bold;
     font-size: 12px;
+}
+/*Link on Sign In*/
+.signIn{
+    margin-top: 10px;
 }
