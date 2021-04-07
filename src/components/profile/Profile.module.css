@@ -1,7 +1,17 @@
 .container {
+    height: 70vh;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 50px;
+}
+
+.loading {
+    height: 15px;
+    font-size: 17px;
+    color: green;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 25px;
+    text-align: center;
 }

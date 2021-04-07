@@ -1,6 +1,6 @@
 import {Dispatch} from "react";
 import {ApiRegister} from "../../api/RegistrApi";
-import {loginAPI} from "../../api/auth-api";
+import {authAPI} from "../../api/auth-api";
 
 let initialState: ReducerStateType = {
     status: "free",
@@ -68,7 +68,7 @@ export const registerTC = (email: string, password: string) => async (dispatch: 
 
 }
 export const registrIsAuthTC = () => async (dispatch: Dispatch<ReducerActionType>) => {
-    let result = await loginAPI.authMe()
+    let result = await authAPI.authMe()
     result.data && dispatch(setIsRegisterAC(true))
 
 
