@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './PasswordRecovery.module.css'
-import {passwordRecoveryTC, ServerRequestStatusType} from "./passwordRecoveryReducer";
+import {passwordRecoveryTC, ServerRequestStatusType, setErrorAC} from "./passwordRecoveryReducer";
 import {AppRootStateType} from "../../store/store";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../App";
@@ -22,8 +22,13 @@ export const PasswordRecovery = () => {
     }
 
     const OnButtonClick = () => {
-        const currentPageDomain = window.location.host
-        dispatch(passwordRecoveryTC(inputValue, currentPageDomain))
+        let validator = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (validator.test(inputValue) == false) {
+            dispatch(setErrorAC('Please, enter correct email'))
+        } else {
+            const currentPageDomain = window.location.host
+            dispatch(passwordRecoveryTC(inputValue, currentPageDomain))
+        }
     }
 
     return (
