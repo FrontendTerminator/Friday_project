@@ -21,7 +21,7 @@ export const Registration = () => {
     useEffect(()=>{
         dispatch(registrIsAuthTC())
     },[dispatch])
-
+    let validator = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     const onChangeTextEmail = (value: string) => {
         setEmailValue(value)
     }
@@ -36,7 +36,12 @@ export const Registration = () => {
         if (passwordOneValue !== passwordTwoValue) {
             dispatch(setErrorAC('Password confirmation does not match'))
             return
+        }else if(!validator.test(emailValue)){
+            dispatch(setErrorAC('Please, enter correct email'))
+            return
         }
+
+
 
         dispatch(registerTC(emailValue, passwordOneValue))
     }
