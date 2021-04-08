@@ -7,7 +7,7 @@ let initialState: ReducerStateType = {
     isRegister: false,
     error: "",
 }
-const setStatusAC = (status: TypeStatus) => {
+export const setStatusAC = (status: TypeStatus) => {
     return {
         type: '/register_reducer/SET_STATUS',
         status
@@ -74,7 +74,7 @@ export const registrIsAuthTC = () => async (dispatch: Dispatch<ReducerActionType
 
 }
 export type TypeStatus = 'free' | 'loading' | 'success' | 'error'
-type ReducerStateType = {
+export type ReducerStateType = {
     status: TypeStatus
     isRegister: boolean
     error: string
