@@ -41,3 +41,34 @@ export const passwordRecoveryApi = {
         )
     }
 }
+export type TypeCards = {
+    cardsCount: number
+    created:string
+    grade: number
+    more_id:string
+    name:string
+    path: string
+    private:boolean
+    rating:number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+}
+export type TypeResponsePacks = {
+    cardPacks: TypeCards[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+export const packsApi = {
+    getPacks(){
+        return instance.get<TypeResponsePacks>('cards/pack').then(response =>response.data)
+    }
+
+}
