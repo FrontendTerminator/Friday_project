@@ -36,7 +36,8 @@ export const passwordRecoveryApi = {
                 email: email,
                 from: "Test-front-admin <mikutishvili.koba@gmail.com>",
                 message: `<div>Password recovery. Click this <a href='http://${domain}/#/newPassword/$token$'>link</a></div>`
-            }
+            },
+            {withCredentials: true}
         )
     }
 }

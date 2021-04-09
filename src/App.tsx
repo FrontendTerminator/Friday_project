@@ -18,7 +18,8 @@ export const PATH = {
     passwordRecovery: "/passwordRecovery",
     newPassword: "/newPassword",
     testPage: "/testPage",
-    pageNotFound: "*"
+    pageNotFound: "*",
+    startPage: "/"
 }
 
 export const App = () => {
@@ -42,6 +43,7 @@ export const App = () => {
                                render={() => <NewPassword/>}/>
                         <Route path={PATH.testPage}
                                render={() => <TestPage/>}/>
+                        <Redirect from={PATH.startPage} to={PATH.login}/>
                         <Redirect from={PATH.pageNotFound} to={PATH.page404}/>
                     </Switch>
                 </div>
