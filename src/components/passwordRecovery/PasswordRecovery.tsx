@@ -3,9 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import s from './PasswordRecovery.module.css'
 import {passwordRecoveryTC, ServerRequestStatusType, setErrorAC} from "./passwordRecoveryReducer";
 import {AppRootStateType} from "../../store/store";
-import {Redirect} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {PATH} from "../../App";
 import Preloader from "../../common/preloader";
+import SuperButton1 from "../superComponents/c2-SuperButton/SuperButton1";
 
 
 export const PasswordRecovery = () => {
@@ -46,7 +47,10 @@ export const PasswordRecovery = () => {
                                className={s.input}
                         />
                         <div className={s.error}>{error}</div>
-                        <button onClick={OnButtonClick}>send</button>
+                        <SuperButton1 className={s.button}
+                                onClick={OnButtonClick}>send
+                        </SuperButton1>
+                        <NavLink to={PATH.registration}>Sign up</NavLink>
                     </div>
                 }
             </div>
