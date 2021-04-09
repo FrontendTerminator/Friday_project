@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/Friday_project/static/css/main.29671fac.chunk.css",
-    "main.js": "/Friday_project/static/js/main.afd81e27.chunk.js",
-    "main.js.map": "/Friday_project/static/js/main.afd81e27.chunk.js.map",
-    "runtime-main.js": "/Friday_project/static/js/runtime-main.5f88cbb8.js",
-    "runtime-main.js.map": "/Friday_project/static/js/runtime-main.5f88cbb8.js.map",
-    "static/js/2.a6674432.chunk.js": "/Friday_project/static/js/2.a6674432.chunk.js",
-    "static/js/2.a6674432.chunk.js.map": "/Friday_project/static/js/2.a6674432.chunk.js.map",
-    "static/js/3.413427b7.chunk.js": "/Friday_project/static/js/3.413427b7.chunk.js",
-    "static/js/3.413427b7.chunk.js.map": "/Friday_project/static/js/3.413427b7.chunk.js.map",
+    "main.css": "/Friday_project/static/css/main.72700395.chunk.css",
+    "main.js": "/Friday_project/static/js/main.5dd80b93.chunk.js",
+    "main.js.map": "/Friday_project/static/js/main.5dd80b93.chunk.js.map",
+    "runtime-main.js": "/Friday_project/static/js/runtime-main.b98c1097.js",
+    "runtime-main.js.map": "/Friday_project/static/js/runtime-main.b98c1097.js.map",
+    "static/js/2.58bf746f.chunk.js": "/Friday_project/static/js/2.58bf746f.chunk.js",
+    "static/js/2.58bf746f.chunk.js.map": "/Friday_project/static/js/2.58bf746f.chunk.js.map",
+    "static/js/3.ad7295ca.chunk.js": "/Friday_project/static/js/3.ad7295ca.chunk.js",
+    "static/js/3.ad7295ca.chunk.js.map": "/Friday_project/static/js/3.ad7295ca.chunk.js.map",
     "index.html": "/Friday_project/index.html",
-    "static/css/main.29671fac.chunk.css.map": "/Friday_project/static/css/main.29671fac.chunk.css.map",
-    "static/js/2.a6674432.chunk.js.LICENSE.txt": "/Friday_project/static/js/2.a6674432.chunk.js.LICENSE.txt",
-    "static/media/kot.da7a033b.jpg": "/Friday_project/static/media/kot.da7a033b.jpg"
+    "static/css/main.72700395.chunk.css.map": "/Friday_project/static/css/main.72700395.chunk.css.map",
+    "static/js/2.58bf746f.chunk.js.LICENSE.txt": "/Friday_project/static/js/2.58bf746f.chunk.js.LICENSE.txt",
+    "static/media/kot.da7a033b.jpg": "/Friday_project/static/media/kot.da7a033b.jpg",
+    "static/media/tms-loading.45dec5c5.gif": "/Friday_project/static/media/tms-loading.45dec5c5.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.5f88cbb8.js",
-    "static/js/2.a6674432.chunk.js",
-    "static/css/main.29671fac.chunk.css",
-    "static/js/main.afd81e27.chunk.js"
+    "static/js/runtime-main.b98c1097.js",
+    "static/js/2.58bf746f.chunk.js",
+    "static/css/main.72700395.chunk.css",
+    "static/js/main.5dd80b93.chunk.js"
   ]
 }
