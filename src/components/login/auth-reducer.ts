@@ -60,7 +60,7 @@ export const authReducer = (state = initState, action: ActionsType): InitStateTy
 // Actions
 const setUserData = (payload: UserDataType) => ({type: 'friday-project/login/SET_USER_DATA', payload} as const)
 const setIsLoading = (value: boolean) => ({type: 'friday-project/login/SET_IS_LOADING', value} as const)
-const setError = (error: string) => ({type: 'friday-project/login/SET_ERROR', error} as const)
+export const setError = (error: string) => ({type: 'friday-project/login/SET_ERROR', error} as const)
 const setIsAuthSuccess = (value: boolean) => ({type: 'friday-project/login/SET_IS_AUTH_SUCCESS', value} as const)
 
 // Thunks
@@ -77,6 +77,7 @@ export const signIn = (payload: AuthDataType): ThunkType => async (dispatch: Thu
         dispatch(setIsLoading(false))
         dispatch(setIsAuthSuccess(true))
         dispatch(setUserData(res.data))
+        dispatch(setError(''))
     } catch (e) {
         let error = e.response.data.error
         dispatch(setIsLoading(false))

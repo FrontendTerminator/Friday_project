@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {NavLink, Redirect} from "react-router-dom";
 import {PATH} from "../../App";
-import {signIn} from "./auth-reducer";
+import {setError, signIn} from "./auth-reducer";
 import Preloader from "../../common/preloader";
 
 export type AuthDataType = {
@@ -26,7 +26,10 @@ export const Login = () => {
 
     const clickHandler = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
-        dispatch(signIn(formData))
+        let validator = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (!validator.test(formData.email)) {
+            dispatch(setError('Please, enter correct email'))
+        } else dispatch(signIn(formData))
     }
 
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.auth.isLoading)
