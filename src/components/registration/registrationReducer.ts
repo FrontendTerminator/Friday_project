@@ -1,6 +1,5 @@
 import {Dispatch} from "react";
-import {ApiRegister} from "../../api/RegistrApi";
-import {authAPI} from "../../api/auth-api";
+import {ApiRegister, authAPI} from "../../api/auth-api";
 
 let initialState: ReducerStateType = {
     status: "free",

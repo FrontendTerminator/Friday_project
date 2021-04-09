@@ -1,5 +1,5 @@
 import {Dispatch} from "redux"
-import {passwordRecoveryApi} from "../../api/passwordRecovery-api";
+import {passwordRecoveryApi} from "../../api/auth-api";
 
 const initialState: PasswordRecoveryReducerStateType = {
     serverResponseStatus: false,
