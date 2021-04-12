@@ -55,6 +55,7 @@ export type TypeCards = {
     updated: string
     user_id: string
     user_name: string
+    _id:string
 }
 export type TypeResponsePacks = {
     cardPacks: TypeCards[]
@@ -68,7 +69,29 @@ export type TypeResponsePacks = {
 }
 export const packsApi = {
     getPacks(){
-        return instance.get<TypeResponsePacks>('cards/pack').then(response =>response.data)
-    }
+        return instance.get<TypeResponsePacks>('cards/pack?pageCount=10')
+            .then(response =>response.data)
+    },
+    setPacks(){
+        return instance.post<TypeResponsePacks>('cards/pack',{
+            cardsPack:{
+                name:"PuY"
+            }
+        })
+            .then(response =>response.data)
+    },
+    deletePacks(id:string){
+        return instance.delete<TypeResponsePacks>(`cards/pack?id=${id}`)
+            .then(response =>response.data)
+    },
+    updatePacks(id:string){
+        return instance.put<TypeResponsePacks>(`cards/pack`,{
+            cardsPack:{
+                _id:id,
+                name:"Update PuY"
+            }
+        })
+            .then(response =>response.data)
+    },
 
 }

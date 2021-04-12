@@ -57,7 +57,6 @@ export const getPackTC = () => async (dispatch: Dispatch<TypeThunkDispatch>) => 
     try{
         dispatch(setStatusPacksAC('loading'))
         let result = await packsApi.getPacks()
-        console.log(result)
         dispatch(getPacksAC(result))
         dispatch(setErrorPacksAC(""))
         dispatch(setStatusPacksAC('success'))
@@ -65,6 +64,55 @@ export const getPackTC = () => async (dispatch: Dispatch<TypeThunkDispatch>) => 
         const error: TypeError = e.response.data;
             dispatch(setErrorPacksAC(error.error))
             dispatch(setStatusPacksAC('success'))
+
+    }
+}
+export const setPackTC = () => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+    try{
+        dispatch(setStatusPacksAC('loading'))
+        await packsApi.setPacks()
+        let result =  await packsApi.getPacks()
+        dispatch(getPacksAC(result))
+        dispatch(setErrorPacksAC(""))
+        dispatch(setStatusPacksAC('success'))
+    }catch (e) {
+        const error: TypeError = e.response.data;
+        dispatch(setErrorPacksAC(error.error))
+        dispatch(setStatusPacksAC('success'))
+
+    }
+}
+export const deletePackTC = (id:string) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+    try{
+        dispatch(setStatusPacksAC('loading'))
+        await packsApi.deletePacks(id)
+        let result =  await packsApi.getPacks()
+        dispatch(getPacksAC(result))
+        dispatch(setErrorPacksAC(""))
+        dispatch(setStatusPacksAC('success'))
+
+
+    }catch (e) {
+        const error: TypeError = e.response.data;
+        dispatch(setErrorPacksAC(error.error))
+        dispatch(setStatusPacksAC('success'))
+
+    }
+}
+export const updatePackTC = (id:string) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+    try{
+        dispatch(setStatusPacksAC('loading'))
+        await packsApi.updatePacks(id)
+        let result =  await packsApi.getPacks()
+        dispatch(getPacksAC(result))
+        dispatch(setErrorPacksAC(""))
+        dispatch(setStatusPacksAC('success'))
+
+
+    }catch (e) {
+        const error: TypeError = e.response.data;
+        dispatch(setErrorPacksAC(error.error))
+        dispatch(setStatusPacksAC('success'))
 
     }
 }
