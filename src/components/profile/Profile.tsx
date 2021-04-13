@@ -23,7 +23,9 @@ export const Profile = () => {
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.auth.isLoading)
 
     useEffect(() => {
-        dispatch(authMe())
+        if (!isAuth) {
+            dispatch(authMe())
+        }
     }, [dispatch])
 
     return (
