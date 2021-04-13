@@ -1,4 +1,9 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps, MouseEventHandler, useEffect} from 'react';
+import React, {
+    MouseEvent,
+    ChangeEvent,
+    useEffect,
+    useState
+} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deletePackTC, getPackTC, setPackTC, updatePackTC} from "./paskReducer";
 import {TypeCards, TypeResponsePacks} from "../../api/auth-api";
@@ -6,26 +11,45 @@ import {AppRootStateType} from "../../store/store";
 import {TypeStatus} from "../registration/registrationReducer";
 import Preloader from "../../common/preloader";
 import s from "./packs.module.css";
+import SuperButton1 from "../superComponents/c2-SuperButton/SuperButton1";
+
 const Packs = () => {
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, TypeStatus>(state => state.packs.status)
     const error = useSelector<AppRootStateType, string>(state => state.packs.error)
     const packs = useSelector<AppRootStateType, TypeResponsePacks | null>(state => state.packs.packs)
-    const setPack = () => {
-        dispatch(setPackTC())
+    const [packValue,setPackValue] = useState<string>('')
+    const [modal,setModal] = useState<boolean>(false)
+    const addPack = () => {
+        setModal(true)
+
     }
-    const deletePack = (event:any)=>{
+    const setPack = ()=>{
+        dispatch(setPackTC(packValue))
+        setModal(false)
+
+    }
+    const deletePack = (event: MouseEvent<HTMLButtonElement>) => {
         dispatch(deletePackTC(event.currentTarget.dataset.id))
     }
-    const updatePack = (event:any)=>{
+    const updatePack = (event:MouseEvent<HTMLButtonElement>) => {
         dispatch(updatePackTC(event.currentTarget.dataset.id))
+    }
+    const changeValuePack = (event:ChangeEvent<HTMLInputElement>)=>{
+        setPackValue(event.currentTarget.value)
     }
     useEffect(() => {
         dispatch(getPackTC())
     }, [dispatch])
 
     return <>
-        <div style={{color:'red'}}>{error && error}</div>
+        <div style={{color: 'red'}}>{error && error}</div>
+        <div className={modal?s.popup:s.hide}  >
+            <div className={s.popupContent}>
+                <input value={packValue} onChange={changeValuePack} type="text"/>
+                <SuperButton1 onClick={setPack}>Add</SuperButton1>
+            </div>
+        </div>
         {status === "loading" ? <Preloader/> :
 
             <div className={s.table}>
@@ -36,7 +60,7 @@ const Packs = () => {
                     <div className={s.cell}>Updated</div>
                     <div className={s.cell}>Url</div>
                     <div className={s.cell}>
-                        <button onClick={setPack}>Add</button>
+                        <button onClick={addPack}>Add</button>
                     </div>
                 </div>
                 <div className={s.gridTable}>

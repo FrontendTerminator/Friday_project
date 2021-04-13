@@ -67,10 +67,10 @@ export const getPackTC = () => async (dispatch: Dispatch<TypeThunkDispatch>) => 
 
     }
 }
-export const setPackTC = () => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+export const setPackTC = (name:string) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
     try{
         dispatch(setStatusPacksAC('loading'))
-        await packsApi.setPacks()
+        await packsApi.setPacks(name)
         let result =  await packsApi.getPacks()
         dispatch(getPacksAC(result))
         dispatch(setErrorPacksAC(""))
@@ -82,7 +82,7 @@ export const setPackTC = () => async (dispatch: Dispatch<TypeThunkDispatch>) => 
 
     }
 }
-export const deletePackTC = (id:string) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+export const deletePackTC = (id:string|undefined) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
     try{
         dispatch(setStatusPacksAC('loading'))
         await packsApi.deletePacks(id)
@@ -99,7 +99,7 @@ export const deletePackTC = (id:string) => async (dispatch: Dispatch<TypeThunkDi
 
     }
 }
-export const updatePackTC = (id:string) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+export const updatePackTC = (id:string|undefined) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
     try{
         dispatch(setStatusPacksAC('loading'))
         await packsApi.updatePacks(id)

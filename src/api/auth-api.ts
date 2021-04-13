@@ -21,8 +21,8 @@ export const authAPI = {
 }
 
 export const ApiRegister = {
-    setRegister (email:string,password:string){
-        return  instance.post('auth/register',{email,password}).then(response =>{
+    setRegister(email: string, password: string) {
+        return instance.post('auth/register', {email, password}).then(response => {
             return response.data
         })
     }
@@ -43,19 +43,19 @@ export const passwordRecoveryApi = {
 }
 export type TypeCards = {
     cardsCount: number
-    created:string
+    created: string
     grade: number
-    more_id:string
-    name:string
+    more_id: string
+    name: string
     path: string
-    private:boolean
-    rating:number
+    private: boolean
+    rating: number
     shots: number
     type: string
     updated: string
     user_id: string
     user_name: string
-    _id:string
+    _id: string
 }
 export type TypeResponsePacks = {
     cardPacks: TypeCards[]
@@ -67,31 +67,37 @@ export type TypeResponsePacks = {
     token: string
     tokenDeathTime: number
 }
+
+type TypeResponseAddPacks = {
+    newCardsPack: TypeCards
+    token: string
+    tokenDeathTime: number
+}
 export const packsApi = {
-    getPacks(){
+    getPacks() {
         return instance.get<TypeResponsePacks>('cards/pack?pageCount=10')
-            .then(response =>response.data)
+            .then(response => response.data)
     },
-    setPacks(){
-        return instance.post<TypeResponsePacks>('cards/pack',{
-            cardsPack:{
-                name:"PuY"
+    setPacks(name:string) {
+        return instance.post<TypeResponseAddPacks>('cards/pack', {
+            cardsPack: {
+                name
             }
         })
-            .then(response =>response.data)
+            .then(response => response.data)
     },
-    deletePacks(id:string){
-        return instance.delete<TypeResponsePacks>(`cards/pack?id=${id}`)
-            .then(response =>response.data)
+    deletePacks(id: string|undefined) {
+        return instance.delete<TypeResponseAddPacks>(`cards/pack?id=${id}`)
+            .then(response => response.data)
     },
-    updatePacks(id:string){
-        return instance.put<TypeResponsePacks>(`cards/pack`,{
-            cardsPack:{
-                _id:id,
-                name:"Update PuY"
+    updatePacks(id: string|undefined) {
+        return instance.put<TypeResponseAddPacks>(`cards/pack`, {
+            cardsPack: {
+                _id: id,
+                name: "Update PuY"
             }
         })
-            .then(response =>response.data)
+            .then(response => response.data)
     },
 
 }
