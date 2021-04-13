@@ -90,11 +90,11 @@ export const packsApi = {
         return instance.delete<TypeResponseAddPacks>(`cards/pack?id=${id}`)
             .then(response => response.data)
     },
-    updatePacks(id: string|undefined) {
+    updatePacks(id: string|undefined,name:string) {
         return instance.put<TypeResponseAddPacks>(`cards/pack`, {
             cardsPack: {
                 _id: id,
-                name: "Update PuY"
+                name
             }
         })
             .then(response => response.data)

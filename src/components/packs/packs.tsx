@@ -18,24 +18,36 @@ const Packs = () => {
     const status = useSelector<AppRootStateType, TypeStatus>(state => state.packs.status)
     const error = useSelector<AppRootStateType, string>(state => state.packs.error)
     const packs = useSelector<AppRootStateType, TypeResponsePacks | null>(state => state.packs.packs)
-    const [packValue,setPackValue] = useState<string>('')
-    const [modal,setModal] = useState<boolean>(false)
-    const addPack = () => {
-        setModal(true)
-
+    const [packValue, setPackValue] = useState<string>('')
+    const [modal, setModal] = useState<boolean>(false)
+    const [id, setId] = useState<string | undefined>('')
+    const [updateButton, setUpdateButton] = useState<boolean>(false)
+    const addPack = (event: MouseEvent<HTMLButtonElement>) => {
+        if (event.currentTarget.dataset.action === 'update') {
+            setUpdateButton(true)
+            setId(event.currentTarget.dataset.id)
+            setModal(true)
+        } else if (event.currentTarget.dataset.action === 'add') {
+            setUpdateButton(false)
+            setModal(true)
+        }
     }
-    const setPack = ()=>{
-        dispatch(setPackTC(packValue))
-        setModal(false)
+    const setPack = (event: MouseEvent<HTMLButtonElement>) => {
+        if (event.currentTarget.dataset.update === 'update') {
+            dispatch(updatePackTC(id, packValue))
+            setPackValue('')
+            setModal(false)
+        }else if(event.currentTarget.dataset.update === 'add')
+                 dispatch(setPackTC(packValue))
+                 setPackValue('')
+                 setModal(false)
 
     }
     const deletePack = (event: MouseEvent<HTMLButtonElement>) => {
         dispatch(deletePackTC(event.currentTarget.dataset.id))
     }
-    const updatePack = (event:MouseEvent<HTMLButtonElement>) => {
-        dispatch(updatePackTC(event.currentTarget.dataset.id))
-    }
-    const changeValuePack = (event:ChangeEvent<HTMLInputElement>)=>{
+
+    const changeValuePack = (event: ChangeEvent<HTMLInputElement>) => {
         setPackValue(event.currentTarget.value)
     }
     useEffect(() => {
@@ -44,10 +56,14 @@ const Packs = () => {
 
     return <>
         <div style={{color: 'red'}}>{error && error}</div>
-        <div className={modal?s.popup:s.hide}  >
+        <div className={modal ? s.popup : s.hide}>
             <div className={s.popupContent}>
                 <input value={packValue} onChange={changeValuePack} type="text"/>
-                <SuperButton1 onClick={setPack}>Add</SuperButton1>
+                {updateButton? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1>:
+                    <SuperButton1 data-update={'add'} onClick={setPack}>Add</SuperButton1>
+                }
+
+
             </div>
         </div>
         {status === "loading" ? <Preloader/> :
@@ -60,7 +76,7 @@ const Packs = () => {
                     <div className={s.cell}>Updated</div>
                     <div className={s.cell}>Url</div>
                     <div className={s.cell}>
-                        <button onClick={addPack}>Add</button>
+                        <button data-action={'add'} onClick={addPack}>Add</button>
                     </div>
                 </div>
                 <div className={s.gridTable}>
@@ -73,7 +89,8 @@ const Packs = () => {
                                     <div className={s.cell}>{cardPack.path}</div>
                                     <div className={s.cell}>
                                         <button data-id={cardPack._id} onClick={deletePack}>Delete</button>
-                                        <button data-id={cardPack._id} onClick={updatePack}>Update</button>
+                                        <button data-id={cardPack._id} data-action={'update'} onClick={addPack}>Update
+                                        </button>
                                         <a href="">Cards</a>
                                     </div>
                                 </div>

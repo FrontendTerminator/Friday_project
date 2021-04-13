@@ -99,10 +99,10 @@ export const deletePackTC = (id:string|undefined) => async (dispatch: Dispatch<T
 
     }
 }
-export const updatePackTC = (id:string|undefined) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
+export const updatePackTC = (id:string|undefined,name:string) => async (dispatch: Dispatch<TypeThunkDispatch>) => {
     try{
         dispatch(setStatusPacksAC('loading'))
-        await packsApi.updatePacks(id)
+        await packsApi.updatePacks(id,name)
         let result =  await packsApi.getPacks()
         dispatch(getPacksAC(result))
         dispatch(setErrorPacksAC(""))
