@@ -12,6 +12,8 @@ import {TypeStatus} from "../registration/registrationReducer";
 import Preloader from "../../common/preloader";
 import s from "./packs.module.css";
 import SuperButton1 from "../superComponents/c2-SuperButton/SuperButton1";
+import SuperDoubleRange from "../superComponents/c4-SuperDoubleRange/superDoubleRange";
+import Pagination from "./Pagination";
 import {NavLink} from 'react-router-dom';
 import {PATH} from "../../App";
 import {getCardsTC, setCardsAC} from "../cards/cardsReducer";
@@ -20,11 +22,29 @@ const Packs = () => {
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, TypeStatus>(state => state.packs.status)
     const error = useSelector<AppRootStateType, string>(state => state.packs.error)
-    const packs = useSelector<AppRootStateType, TypeResponsePacks | null>(state => state.packs.packs)
+    const packs = useSelector<AppRootStateType, TypeCards[] | undefined>(state => state.packs.packs?.cardPacks)
     const [packValue, setPackValue] = useState<string>('')
     const [modal, setModal] = useState<boolean>(false)
     const [id, setId] = useState<string | undefined>('')
+    const [searchPack, setSearch] = useState<string>('')
     const [updateButton, setUpdateButton] = useState<boolean>(false)
+    const [value1, setValue1] = useState(0);
+    const [value2, setValue2] = useState(10);
+
+    const filterPack = packs?.filter(pack => {
+        if (searchPack === '' && pack.cardsCount >= value1 && pack.cardsCount <= value2) {
+            return pack
+        } else if (pack.name.toLowerCase().match(searchPack) && pack.cardsCount >= value1 && pack.cardsCount <= value2) {
+            return pack
+        }
+
+    })
+    useEffect(() => {
+        dispatch(getPackTC())
+
+    }, [dispatch])
+
+
     const addPack = (event: MouseEvent<HTMLButtonElement>) => {
         if (event.currentTarget.dataset.action === 'update') {
             setUpdateButton(true)
@@ -53,15 +73,26 @@ const Packs = () => {
     const changeValuePack = (event: ChangeEvent<HTMLInputElement>) => {
         setPackValue(event.currentTarget.value)
     }
+    const changeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.currentTarget.value)
+    }
     const onCardsClick = (packsId: string) => {
         dispatch(getCardsTC(packsId))
     }
 
-    useEffect(() => {
-        dispatch(getPackTC())
-    }, [dispatch])
-
     return <>
+
+        <div className={s.search}>
+            <input placeholder='Search' value={searchPack} onChange={changeSearch} type="text"/>
+           <div>
+               <SuperDoubleRange setValue2={setValue2} setValue1={setValue1} max={value2} min={value1}/>
+        </div>
+
+        </div>
+        <div className={s.pagination}>
+            <Pagination/>
+        </div>
+
         <div style={{color: 'red'}}>{error && error}</div>
         <div className={modal ? s.popup : s.hide}>
             <div className={s.popupContent}>
@@ -87,7 +118,8 @@ const Packs = () => {
                     </div>
                 </div>
                 <div className={s.gridTable}>
-                    {packs && packs.cardPacks && packs.cardPacks.map((cardPack: TypeCards) => {
+                    {filterPack && filterPack.map((cardPack: TypeCards) => {
+
                             return (
                                 <div className={s.tableRow} key={cardPack.updated}>
                                     <div className={s.cell}>{cardPack.name}</div>
