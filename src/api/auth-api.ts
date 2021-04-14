@@ -74,8 +74,8 @@ type TypeResponseAddPacks = {
     tokenDeathTime: number
 }
 export const packsApi = {
-    getPacks() {
-        return instance.get<TypeResponsePacks>('cards/pack?pageCount=10')
+    getPacks(page:number) {
+        return instance.get<TypeResponsePacks>(`cards/pack?pageCount=100&page=${page}`)
             .then(response => response.data)
     },
     setPacks(name:string) {
