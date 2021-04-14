@@ -1,0 +1,39 @@
+.cards {
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    border: 1px solid black;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    border-bottom: 1px solid black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.gridTable {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.tableRow {
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+}
+
+.cell {
+    width: 300px;
+    height: 100%;
+    text-align: center;
+    word-wrap: break-word;
+}

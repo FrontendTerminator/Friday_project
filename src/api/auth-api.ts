@@ -101,3 +101,48 @@ export const packsApi = {
     },
 
 }
+
+export type CardType = {
+    answer: string
+    cardsPack_id: string
+    comments: string
+    created: string
+    grade: number
+    more_id: string
+    question: string
+    questionImg: string
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
+}
+type GetCardsResponseType = {
+    cards: Array<CardType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId: string
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+type AddCardResponseType = {
+    newCard: CardType
+    token: string
+    tokenDeathTime: number
+}
+
+export const cardsApi = {
+    getCards(cardPackId: string){
+        return instance.get<GetCardsResponseType>(`cards/card?cardsPack_id=${cardPackId}`)
+            .then(res => res.data)
+    },
+    addCard(cardsPackId: string){
+        return instance.post<AddCardResponseType>(`cards/card`, {card: {cardsPack_id: cardsPackId}})
+            .then(res => res.data)
+    }
+}

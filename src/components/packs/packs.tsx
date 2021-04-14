@@ -6,12 +6,15 @@ import React, {
 } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deletePackTC, getPackTC, setPackTC, updatePackTC} from "./paskReducer";
-import {TypeCards, TypeResponsePacks} from "../../api/auth-api";
+import {cardsApi, TypeCards, TypeResponsePacks} from "../../api/auth-api";
 import {AppRootStateType} from "../../store/store";
 import {TypeStatus} from "../registration/registrationReducer";
 import Preloader from "../../common/preloader";
 import s from "./packs.module.css";
 import SuperButton1 from "../superComponents/c2-SuperButton/SuperButton1";
+import {NavLink} from 'react-router-dom';
+import {PATH} from "../../App";
+import {getCardsTC, setCardsAC} from "../cards/cardsReducer";
 
 const Packs = () => {
     const dispatch = useDispatch()
@@ -37,10 +40,10 @@ const Packs = () => {
             dispatch(updatePackTC(id, packValue))
             setPackValue('')
             setModal(false)
-        }else if(event.currentTarget.dataset.update === 'add')
-                 dispatch(setPackTC(packValue))
-                 setPackValue('')
-                 setModal(false)
+        } else if (event.currentTarget.dataset.update === 'add')
+            dispatch(setPackTC(packValue))
+        setPackValue('')
+        setModal(false)
 
     }
     const deletePack = (event: MouseEvent<HTMLButtonElement>) => {
@@ -50,6 +53,10 @@ const Packs = () => {
     const changeValuePack = (event: ChangeEvent<HTMLInputElement>) => {
         setPackValue(event.currentTarget.value)
     }
+    const onCardsClick = (packsId: string) => {
+        dispatch(getCardsTC(packsId))
+    }
+
     useEffect(() => {
         dispatch(getPackTC())
     }, [dispatch])
@@ -59,7 +66,7 @@ const Packs = () => {
         <div className={modal ? s.popup : s.hide}>
             <div className={s.popupContent}>
                 <input value={packValue} onChange={changeValuePack} type="text"/>
-                {updateButton? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1>:
+                {updateButton ? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1> :
                     <SuperButton1 data-update={'add'} onClick={setPack}>Add</SuperButton1>
                 }
 
@@ -91,7 +98,9 @@ const Packs = () => {
                                         <button data-id={cardPack._id} onClick={deletePack}>Delete</button>
                                         <button data-id={cardPack._id} data-action={'update'} onClick={addPack}>Update
                                         </button>
-                                        <a href="">Cards</a>
+                                        <NavLink onClick={() => onCardsClick(cardPack._id)}
+                                                 to={PATH.cards}>Cards
+                                        </NavLink>
                                     </div>
                                 </div>
                             )
