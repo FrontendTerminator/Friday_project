@@ -14,6 +14,8 @@ import s from "./packs.module.css";
 import SuperButton1 from "../superComponents/c2-SuperButton/SuperButton1";
 import SuperDoubleRange from "../superComponents/c4-SuperDoubleRange/superDoubleRange";
 import Pagination from "./Pagination";
+import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
+import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
 
 const Packs = () => {
     const dispatch = useDispatch()
@@ -93,8 +95,10 @@ const Packs = () => {
                 <input value={packValue} onChange={changeValuePack} type="text"/>
                 {updateButton ? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1> :
                     <SuperButton1 data-update={'add'} onClick={setPack}>Add</SuperButton1>
-                }
 
+                }
+                <VerticalAlignTopIcon/>
+                <VerticalAlignBottomIcon/>
 
             </div>
         </div>
