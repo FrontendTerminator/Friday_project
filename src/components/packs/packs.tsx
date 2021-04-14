@@ -14,6 +14,9 @@ import s from "./packs.module.css";
 import SuperButton1 from "../superComponents/c2-SuperButton/SuperButton1";
 import SuperDoubleRange from "../superComponents/c4-SuperDoubleRange/superDoubleRange";
 import Pagination from "./Pagination";
+import {NavLink} from 'react-router-dom';
+import {PATH} from "../../App";
+import {getCardsTC, setCardsAC} from "../cards/cardsReducer";
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
 
@@ -75,6 +78,9 @@ const Packs = () => {
     const changeSearch = (event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.currentTarget.value)
     }
+    const onCardsClick = (packsId: string) => {
+        dispatch(getCardsTC(packsId))
+    }
 
     return <>
 
@@ -128,7 +134,9 @@ const Packs = () => {
                                         <button data-id={cardPack._id} onClick={deletePack}>Delete</button>
                                         <button data-id={cardPack._id} data-action={'update'} onClick={addPack}>Update
                                         </button>
-                                        <a href="">Cards</a>
+                                        <NavLink onClick={() => onCardsClick(cardPack._id)}
+                                                 to={PATH.cards}>Cards
+                                        </NavLink>
                                     </div>
                                 </div>
                             )

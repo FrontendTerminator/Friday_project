@@ -10,6 +10,7 @@ import {NewPassword} from "./components/newPassword/NewPassword";
 import {TestPage} from "./components/testPage/TestPage";
 import {Navigation} from "./components/navigation/Navigation";
 import Packs from "./components/packs/packs";
+import {Cards} from './components/cards/Cards';
 
 export const PATH = {
     login: "/login",
@@ -20,7 +21,8 @@ export const PATH = {
     newPassword: "/newPassword",
     testPage: "/testPage",
     pageNotFound: "*",
-    packs:'/packs',
+    packs: "/packs",
+    cards: "/cards",
     startPage: "/"
 }
 
@@ -45,6 +47,8 @@ export const App = () => {
                                render={() => <NewPassword/>}/>
                         <Route path={PATH.packs}
                                render={() => <Packs/>}/>
+                        <Route path={PATH.cards}
+                               render={() => <Cards/>}/>
                         <Route path={PATH.testPage}
                                render={() => <TestPage/>}/>
                         <Redirect from={PATH.startPage} to={PATH.login}/>
