@@ -14,14 +14,16 @@ export const Cards = () => {
     const id = useSelector<AppRootStateType, string | undefined>(state => state.packs.packs?.cardPacks[0]._id)
 
     const addCard = () => {
-        dispatch(addCardTC(id!))
+        let newTitle = prompt("Enter title", "New question")
+        if (newTitle !== null) {
+            dispatch(addCardTC(id!, newTitle))
+        }
     }
     const deleteCard = (cardId: string) => {
         dispatch(deleteCardTC(cardId))
     }
     const updateCard = (cardId: string) => {
-        let newTitle = prompt("Enter new title", "New question")
-        console.log(newTitle)
+        let newTitle = prompt("Enter new title", "Some question")
         if (newTitle !== null) {
             dispatch(updateCardTC(cardId, newTitle))
         }

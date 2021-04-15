@@ -65,15 +65,16 @@ export const getCardsTC = (packsId: string) => (dispatch: Dispatch<cardsReducerA
             alert(error)
         })
 }
-export const addCardTC = (cardsPackId: string) => (dispatch: Dispatch<cardsReducerActionType>) => {
+export const addCardTC = (cardsPackId: string, newTitle: string) => (dispatch: Dispatch<cardsReducerActionType>) => {
     dispatch(changeServerAnswerStatusAC(false))
-    cardsApi.addCard(cardsPackId)
+    cardsApi.addCard(cardsPackId, newTitle)
         .then(res => {
             dispatch(changeServerAnswerStatusAC(true))
             dispatch(addNewCardAC(res.newCard))
         })
         .catch(error => {
             dispatch(changeServerAnswerStatusAC(true))
+            console.log(error)
             alert(error)
         })
 }

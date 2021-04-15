@@ -144,8 +144,8 @@ export const cardsApi = {
         return instance.get<GetCardsResponseType>(`cards/card?pageCount=10&cardsPack_id=${cardPackId}`)
             .then(res => res.data)
     },
-    addCard(cardsPackId: string) {
-        return instance.post<AddCardResponseType>(`cards/card`, {card: {cardsPack_id: cardsPackId}})
+    addCard(cardsPackId: string, newTitle: string) {
+        return instance.post<AddCardResponseType>(`cards/card`, {card: {cardsPack_id: cardsPackId, question: newTitle}})
             .then(res => res.data)
     },
     deleteCard(cardId: string) {
