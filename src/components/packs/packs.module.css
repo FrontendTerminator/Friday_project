@@ -27,11 +27,15 @@
 }
 
 .cell {
-    width:300px;
-    height:100%;
+    width: 300px;
+    height: 100%;
     text-align: center;
     word-wrap: break-word;
 
+}
+.cell .btn{
+    position: relative;
+    left:2.1%;
 }
 
 .popup{

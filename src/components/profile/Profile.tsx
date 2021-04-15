@@ -38,7 +38,7 @@ export const Profile = () => {
                             <Preloader/>
                         </div>
                         : <>
-                            <p>Avatar: {userData.avatar}</p>
+                            <p><img src={userData.avatar} /></p>
                             <p>Name: {userData.name}</p>
                             <p>Email: {userData.email}</p>
                             <p>Card packs: {userData.publicCardPacksCount}</p>

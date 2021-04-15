@@ -7,7 +7,7 @@ import {setIsRegisterAC, TypesetIsRegister} from "../registration/registrationRe
 export type UserDataType = {
     email: string | null
     name: string | null
-    avatar?: string | null
+    avatar: ""
     publicCardPacksCount: number | null
 }
 
@@ -22,7 +22,7 @@ let initState: InitStateType = {
     userData: {
         email: null as string | null,
         name: null as string | null,
-        avatar: null as string | null,
+        avatar: "",
         publicCardPacksCount: null as number | null
     },
     isLoading: false,

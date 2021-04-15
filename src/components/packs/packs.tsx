@@ -19,7 +19,10 @@ import {PATH} from "../../App";
 import {getCardsTC} from "../cards/cardsReducer";
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
-
+import {Button} from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import UpdateIcon from '@material-ui/icons/Update';
+import AddIcon from '@material-ui/icons/Add';
 type TypeSort = 'max' | 'min' | 'middle';
 
 const Packs = () => {
@@ -111,7 +114,10 @@ const Packs = () => {
 
     return <>
         <div className={s.search}>
-            <input placeholder='Search' value={searchPack} onChange={changeSearch} type="text"/>
+            <div>
+                <span style={{fontSize:'20px',marginRight:'10px'}}>Search:</span>
+                <input placeholder='Enter name' value={searchPack} onChange={changeSearch} type="text"/>
+            </div>
             <div>
                 <div style={{fontWeight:'bold',textAlign:'center'}}>Filtering by the count of cards</div>
 
@@ -145,7 +151,14 @@ const Packs = () => {
                     <div className={s.cell}>Updated</div>
                     <div className={s.cell}>Url</div>
                     <div className={s.cell}>
-                        <button data-action={'add'} onClick={addPack}>Add</button>
+                        <Button
+                            className={s.btn}
+                            data-action={'add'}
+                            onClick={addPack}
+                            variant="contained"
+                            color="default"
+                            size={'small'}
+                        > {<AddIcon />}</Button>
                     </div>
                 </div>
                 <div className={s.gridTable}>
@@ -158,9 +171,21 @@ const Packs = () => {
                                 <div className={s.cell}>{cardPack.updated}</div>
                                 <div className={s.cell}>{cardPack.path}</div>
                                 <div className={s.cell}>
-                                    <button data-id={cardPack._id} onClick={deletePack}>Delete</button>
-                                    <button data-id={cardPack._id} data-action={'update'} onClick={addPack}>Update
-                                    </button>
+                                    <Button
+                                        onClick={deletePack}
+                                        data-id={cardPack._id}
+                                        variant="contained"
+                                        color="default"
+                                        size={'small'}
+                                    > {<DeleteIcon />}</Button>
+                                    <Button
+                                        data-action={'update'}
+                                        onClick={addPack}
+                                        data-id={cardPack._id}
+                                        variant="contained"
+                                        color="default"
+                                        size={'small'}
+                                    > {<UpdateIcon />}</Button>
                                     <NavLink onClick={() => onCardsClick(cardPack._id)}
                                              to={PATH.cards}>Cards
                                     </NavLink>
