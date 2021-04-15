@@ -70,11 +70,11 @@ type TypeResponseAddPacks = {
     tokenDeathTime: number
 }
 export const packsApi = {
-    getPacks(page:number) {
+    getPacks(page: number) {
         return instance.get<TypeResponsePacks>(`cards/pack?pageCount=100&page=${page}`)
             .then(response => response.data)
     },
-    setPacks(name:string) {
+    setPacks(name: string) {
         return instance.post<TypeResponseAddPacks>('cards/pack', {
             cardsPack: {
                 name
@@ -82,11 +82,11 @@ export const packsApi = {
         })
             .then(response => response.data)
     },
-    deletePacks(id: string|undefined) {
+    deletePacks(id: string | undefined) {
         return instance.delete<TypeResponseAddPacks>(`cards/pack?id=${id}`)
             .then(response => response.data)
     },
-    updatePacks(id: string|undefined,name:string) {
+    updatePacks(id: string | undefined, name: string) {
         return instance.put<TypeResponseAddPacks>(`cards/pack`, {
             cardsPack: {
                 _id: id,
@@ -107,6 +107,7 @@ export type CardType = {
     more_id: string
     question: string
     questionImg: string
+    questionVideo: string
     rating: number
     shots: number
     type: string
@@ -131,14 +132,27 @@ type AddCardResponseType = {
     token: string
     tokenDeathTime: number
 }
+type UpdateCardResponseType = {
+    updatedCard: CardType
+    token: string
+    tokenDeathTime: number
+}
+
 
 export const cardsApi = {
-    getCards(cardPackId: string){
-        return instance.get<GetCardsResponseType>(`cards/card?cardsPack_id=${cardPackId}`)
+    getCards(cardPackId: string) {
+        return instance.get<GetCardsResponseType>(`cards/card?pageCount=10&cardsPack_id=${cardPackId}`)
             .then(res => res.data)
     },
-    addCard(cardsPackId: string){
+    addCard(cardsPackId: string) {
         return instance.post<AddCardResponseType>(`cards/card`, {card: {cardsPack_id: cardsPackId}})
+            .then(res => res.data)
+    },
+    deleteCard(cardId: string) {
+        return instance.delete(`cards/card?id=${cardId}`)
+    },
+    updateCard(cardId: string, newTitle: string) {
+        return instance.put<UpdateCardResponseType>("cards/card", {card: {_id: cardId, question: newTitle}})
             .then(res => res.data)
     }
 }

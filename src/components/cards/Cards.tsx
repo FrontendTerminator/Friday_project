@@ -1,21 +1,30 @@
 import React from 'react'
 import s from "./Cards.module.css"
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
-import {CardType} from "../../api/auth-api";
-import Preloader from "../../common/preloader";
-import {addCardTC} from "./cardsReducer";
+import {useDispatch, useSelector} from "react-redux"
+import {AppRootStateType} from "../../store/store"
+import {cardsApi, CardType} from "../../api/auth-api"
+import Preloader from "../../common/preloader"
+import {addCardTC, deleteCardTC, updateCardTC} from "./cardsReducer"
 
 export const Cards = () => {
 
     const dispatch = useDispatch()
-
     const cards = useSelector<AppRootStateType, Array<CardType> | []>(state => state.cards.cards)
     const serverAnswerStatus = useSelector<AppRootStateType, boolean>(state => state.cards.serverAnswerStatus)
-    const id =  useSelector<AppRootStateType, string | undefined>(state => state.packs.packs?.cardPacks[0]._id)
+    const id = useSelector<AppRootStateType, string | undefined>(state => state.packs.packs?.cardPacks[0]._id)
 
     const addCard = () => {
         dispatch(addCardTC(id!))
+    }
+    const deleteCard = (cardId: string) => {
+        dispatch(deleteCardTC(cardId))
+    }
+    const updateCard = (cardId: string) => {
+        let newTitle = prompt("Enter new title", "New question")
+        console.log(newTitle)
+        if (newTitle !== null) {
+            dispatch(updateCardTC(cardId, newTitle))
+        }
     }
 
     return <div className={s.cards}>
@@ -39,8 +48,8 @@ export const Cards = () => {
                                 <div className={s.cell}>{card.grade}</div>
                                 <div className={s.cell}>{card.updated}</div>
                                 <div className={s.cell}>
-                                    <button>Delete</button>
-                                    <button>Update</button>
+                                    <button onClick={() => deleteCard(card._id)}>Delete</button>
+                                    <button onClick={() => updateCard(card._id)}>Update</button>
                                 </div>
                             </div>
                         )

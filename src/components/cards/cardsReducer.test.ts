@@ -1,4 +1,12 @@
-import {addNewCardAC, cardsReducer, changeServerAnswerStatusAC, InitialStateType, setCardsAC} from "./cardsReducer";
+import {
+    addNewCardAC,
+    cardsReducer,
+    changeServerAnswerStatusAC,
+    deleteCardAC,
+    InitialStateType,
+    setCardsAC, updateCardAC
+} from "./cardsReducer";
+import {CardType} from "../../api/auth-api";
 
 let initialState: InitialStateType
 
@@ -14,6 +22,7 @@ beforeEach(() => {
                 more_id: "606822c85ebc7e0004aaf46f",
                 question: "new 2.0!",
                 questionImg: "some img",
+                questionVideo: "",
                 rating: 0,
                 shots: 0,
                 type: "card",
@@ -31,6 +40,7 @@ beforeEach(() => {
                 more_id: "606822c85ebc7e0004aaf46f",
                 question: "new 2.0!",
                 questionImg: "some img",
+                questionVideo: "",
                 rating: 0,
                 shots: 0,
                 type: "card",
@@ -59,8 +69,7 @@ test("cards/CHANGE-SERVER-ANSWER STATUS", () => {
 })
 
 test("cards/ADD_NEW_CARD", () => {
-
-    const newCard = {
+    const newCard: CardType = {
         answer: "no answer",
         cardsPack_id: "6076b34bfe48cd0004cdcde3",
         comments: "",
@@ -69,6 +78,7 @@ test("cards/ADD_NEW_CARD", () => {
         more_id: "606822c85ebc7e0004aaf46f",
         question: "new 2.0!",
         questionImg: "some img",
+        questionVideo: "",
         rating: 0,
         shots: 0,
         type: "card",
@@ -80,5 +90,26 @@ test("cards/ADD_NEW_CARD", () => {
 
     const endState = cardsReducer(initialState, addNewCardAC(newCard))
 
-    expect(endState.cards?.length).toBe(3)
+    expect(endState.cards.length).toBe(3)
+})
+
+test("cards/DELETE_CARD", () => {
+    const cardId = initialState.cards[0]._id
+
+    const endState = cardsReducer(initialState, deleteCardAC(cardId))
+
+    expect(endState.cards.length).toBe(1)
+    expect(endState.cards[0]).not.toBe(cardId)
+})
+
+test("cards/UPDATE_CARD", () => {
+    const cardId = initialState.cards[0]._id
+    const newQuestion = "New 3.0 test title"
+
+    const endState = cardsReducer(initialState, updateCardAC(cardId,newQuestion))
+
+    expect(endState.cards.length).toBe(2)
+    expect(endState.cards[0]._id).toBe(cardId)
+    expect(endState.cards[0].question).toBe(newQuestion)
+    expect(initialState.cards[0].question).toBe("new 2.0!")
 })
