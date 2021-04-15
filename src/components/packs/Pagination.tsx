@@ -18,7 +18,7 @@ const arr = [];
     }
     return (
         <div>
-            {arr.map((pages,id)=>{
+            <span style={{fontWeight:'bold'}}>Pages:</span>   {arr.map((pages,id)=>{
                return <span key={id}  className={`${page-1===id ? s.active:""} ${s.page}` } onClick={clickPage }  >{pages}</span>
             })}
         </div>
