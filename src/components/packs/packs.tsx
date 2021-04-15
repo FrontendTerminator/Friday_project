@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deletePackTC, getPackTC, setPackTC, updatePackTC} from "./paskReducer";
-import {cardsApi, TypeCards, TypeResponsePacks} from "../../api/auth-api";
+import {TypeCards} from "../../api/auth-api";
 import {AppRootStateType} from "../../store/store";
 import {TypeStatus} from "../registration/registrationReducer";
 import Preloader from "../../common/preloader";
@@ -16,7 +16,11 @@ import SuperDoubleRange from "../superComponents/c4-SuperDoubleRange/superDouble
 import Pagination from "./Pagination";
 import {NavLink} from 'react-router-dom';
 import {PATH} from "../../App";
-import {getCardsTC, setCardsAC} from "../cards/cardsReducer";
+import {getCardsTC} from "../cards/cardsReducer";
+import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
+import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
+
+type TypeSort = 'max' | 'min' | 'middle';
 
 const Packs = () => {
     const dispatch = useDispatch()
@@ -28,16 +32,34 @@ const Packs = () => {
     const [id, setId] = useState<string | undefined>('')
     const [searchPack, setSearch] = useState<string>('')
     const [updateButton, setUpdateButton] = useState<boolean>(false)
-    const [value1, setValue1] = useState(0);
-    const [value2, setValue2] = useState(10);
+    const [value1, setValue1] = useState<number>(0);
+    const [value2, setValue2] = useState<number>(10);
+    let [sortPacks, setSortPacks] = useState<TypeSort>("middle");
+    function sortByMax(a: TypeCards, b: TypeCards) {
+        if (a.cardsCount <= b.cardsCount) {
+            return 1
+        } else {
+            return -1
+        }
+    }
+    function sortByMin(a: TypeCards, b: TypeCards) {
+        if (a.cardsCount >= b.cardsCount) {
+            return 1
+        } else {
+            return -1
+        }
+    }
 
     const filterPack = packs?.filter(pack => {
-        if (searchPack === '' && pack.cardsCount >= value1 && pack.cardsCount <= value2) {
-            return pack
-        } else if (pack.name.toLowerCase().match(searchPack) && pack.cardsCount >= value1 && pack.cardsCount <= value2) {
-            return pack
+        if (pack.name.toLowerCase().match(searchPack) && pack.cardsCount >= value1 && pack.cardsCount <= value2) {
+            if (sortPacks === "middle") {
+                return pack
+            } else if (sortPacks === "max") {
+                return packs.sort(sortByMax)
+            } else if (sortPacks === "min") {
+                return packs.sort(sortByMin)
+            }
         }
-
     })
     useEffect(() => {
         dispatch(getPackTC())
@@ -80,14 +102,25 @@ const Packs = () => {
         dispatch(getCardsTC(packsId))
     }
 
-    return <>
+    const sortMax = () => {
+        setSortPacks("max")
+    }
+    const sortMin = () => {
+        setSortPacks("min")
+    }
 
+    return <>
         <div className={s.search}>
             <input placeholder='Search' value={searchPack} onChange={changeSearch} type="text"/>
-           <div>
-               <SuperDoubleRange setValue2={setValue2} setValue1={setValue1} max={value2} min={value1}/>
-        </div>
+            <div>
+                <div style={{fontWeight:'bold',textAlign:'center'}}>Filtering by the count of cards</div>
 
+                <SuperDoubleRange setValue2={setValue2} setValue1={setValue1} max={value2} min={value1}/>
+            </div>
+            <div className={s.sort}>
+                <VerticalAlignTopIcon onClick={sortMax}/>
+                <VerticalAlignBottomIcon onClick={sortMin}/>
+            </div>
         </div>
         <div className={s.pagination}>
             <Pagination/>
@@ -100,8 +133,6 @@ const Packs = () => {
                 {updateButton ? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1> :
                     <SuperButton1 data-update={'add'} onClick={setPack}>Add</SuperButton1>
                 }
-
-
             </div>
         </div>
         {status === "loading" ? <Preloader/> :
@@ -120,28 +151,28 @@ const Packs = () => {
                 <div className={s.gridTable}>
                     {filterPack && filterPack.map((cardPack: TypeCards) => {
 
-                            return (
-                                <div className={s.tableRow} key={cardPack.updated}>
-                                    <div className={s.cell}>{cardPack.name}</div>
-                                    <div className={s.cell}>{cardPack.cardsCount}</div>
-                                    <div className={s.cell}>{cardPack.updated}</div>
-                                    <div className={s.cell}>{cardPack.path}</div>
-                                    <div className={s.cell}>
-                                        <button data-id={cardPack._id} onClick={deletePack}>Delete</button>
-                                        <button data-id={cardPack._id} data-action={'update'} onClick={addPack}>Update
-                                        </button>
-                                        <NavLink onClick={() => onCardsClick(cardPack._id)}
-                                                 to={PATH.cards}>Cards
-                                        </NavLink>
-                                    </div>
+                        return (
+                            <div className={s.tableRow} key={cardPack.updated}>
+                                <div className={s.cell}>{cardPack.name}</div>
+                                <div className={s.cell}>{cardPack.cardsCount}</div>
+                                <div className={s.cell}>{cardPack.updated}</div>
+                                <div className={s.cell}>{cardPack.path}</div>
+                                <div className={s.cell}>
+                                    <button data-id={cardPack._id} onClick={deletePack}>Delete</button>
+                                    <button data-id={cardPack._id} data-action={'update'} onClick={addPack}>Update
+                                    </button>
+                                    <NavLink onClick={() => onCardsClick(cardPack._id)}
+                                             to={PATH.cards}>Cards
+                                    </NavLink>
                                 </div>
-                            )
-                        }
-                    )
-                    }
+                            </div>
+                        )
+                    })}
+
                 </div>
 
             </div>
+
         }  </>
 }
 
