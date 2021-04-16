@@ -11,6 +11,7 @@ import {TestPage} from "./components/testPage/TestPage";
 import {Navigation} from "./components/navigation/Navigation";
 import Packs from "./components/packs/packs";
 import {Cards} from './components/cards/Cards';
+import {Learn} from "./components/learn/Learn";
 
 export const PATH = {
     login: "/login",
@@ -23,6 +24,7 @@ export const PATH = {
     pageNotFound: "*",
     packs: "/packs",
     cards: "/cards",
+    learn: "/learn",
     startPage: "/"
 }
 
@@ -51,6 +53,8 @@ export const App = () => {
                                render={() => <Cards/>}/>
                         <Route path={PATH.testPage}
                                render={() => <TestPage/>}/>
+                        <Route path={PATH.learn}
+                               render={() => <Learn/>}/>
                         <Redirect from={PATH.startPage} to={PATH.login}/>
                         <Redirect from={PATH.pageNotFound} to={PATH.page404}/>
                     </Switch>

@@ -14,6 +14,7 @@ export const Navigation = () => {
             <NavLink to={PATH.newPassword}>new password</NavLink>
             <NavLink to={PATH.packs}>Packs</NavLink>
             <NavLink to={PATH.cards}>Cards</NavLink>
+            <NavLink to={PATH.learn}>Learn</NavLink>
             <NavLink to={PATH.testPage}>test page</NavLink>
         </div>
     )
