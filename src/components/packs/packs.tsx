@@ -111,7 +111,9 @@ const Packs = () => {
     const sortMin = () => {
         setSortPacks("min")
     }
-
+    const hideModal = ()=>{
+        setModal(false)
+    }
     return <>
         <div className={s.search}>
             <div>
@@ -133,7 +135,7 @@ const Packs = () => {
         </div>
 
         <div style={{color: 'red'}}>{error && error}</div>
-        <div className={modal ? s.popup : s.hide}>
+        <div onClick={hideModal} className={modal ? s.popup : s.hide}>
             <div className={s.popupContent}>
                 <input value={packValue} onChange={changeValuePack} type="text"/>
                 {updateButton ? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1> :
@@ -149,7 +151,7 @@ const Packs = () => {
                     <div className={s.cell}>Name</div>
                     <div className={s.cell}>Cards count</div>
                     <div className={s.cell}>Updated</div>
-                    <div className={s.cell}>Url</div>
+                    <div className={s.cell}>User Name</div>
                     <div className={s.cell}>
                         <Button
                             className={s.btn}
@@ -169,7 +171,7 @@ const Packs = () => {
                                 <div className={s.cell}>{cardPack.name}</div>
                                 <div className={s.cell}>{cardPack.cardsCount}</div>
                                 <div className={s.cell}>{cardPack.updated}</div>
-                                <div className={s.cell}>{cardPack.path}</div>
+                                <div className={s.cell}>{cardPack.user_name}</div>
                                 <div className={s.cell}>
                                     <Button
                                         onClick={deletePack}
@@ -188,6 +190,9 @@ const Packs = () => {
                                     > {<UpdateIcon />}</Button>
                                     <NavLink onClick={() => onCardsClick(cardPack._id)}
                                              to={PATH.cards + "/" + cardPack._id}>Cards
+                                    </NavLink>
+                                    <NavLink
+                                             to={PATH.learn+'/'+cardPack._id}>Learn
                                     </NavLink>
                                 </div>
                             </div>

@@ -109,9 +109,9 @@ export const updateCardTC = (cardId: string, newTitle: string) => (dispatch: Dis
             alert(error)
         })
 }
-export const sendGradeTC = (cardId: string, grade: number) => (dispatch: Dispatch<cardsReducerActionType>) => {
+export const sendGradeTC = (grade: number,cardId: string ) => (dispatch: Dispatch<cardsReducerActionType>) => {
     dispatch(changeServerAnswerStatusAC(true))
-    cardsApi.sendGrade(cardId, grade)
+    cardsApi.sendGrade(grade,cardId, )
         .then(res => {
             dispatch(changeServerAnswerStatusAC(false))
         })

@@ -53,7 +53,7 @@ export const App = () => {
                                render={() => <Cards/>}/>
                         <Route path={PATH.testPage}
                                render={() => <TestPage/>}/>
-                        <Route path={PATH.learn}
+                        <Route path={PATH.learn + "/:id"}
                                render={() => <Learn/>}/>
                         <Redirect from={PATH.startPage} to={PATH.login}/>
                         <Redirect from={PATH.pageNotFound} to={PATH.page404}/>
