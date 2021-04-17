@@ -1,4 +1,5 @@
 import {
+    addCurrentPacksIdAC,
     addNewCardAC,
     cardsReducer,
     changeServerAnswerStatusAC,
@@ -50,7 +51,8 @@ beforeEach(() => {
                 _id: "6076b4c5fe48cd0004cdcde6"
             }
         ],
-        serverAnswerStatus: true
+        serverAnswerStatus: true,
+        currentPacksId: ""
     }
 })
 
@@ -112,4 +114,13 @@ test("cards/UPDATE_CARD", () => {
     expect(endState.cards[0]._id).toBe(cardId)
     expect(endState.cards[0].question).toBe(newQuestion)
     expect(initialState.cards[0].question).toBe("new 2.0!")
+})
+
+test("cards/ADD_CURRENT_CARD_ID", () => {
+    const cardId = "someId"
+
+    const endState = cardsReducer(initialState, addCurrentPacksIdAC(cardId))
+
+    expect(endState.currentPacksId).toBe(cardId)
+    expect(initialState.currentPacksId).toBe("")
 })

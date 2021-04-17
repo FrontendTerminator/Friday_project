@@ -1,22 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import s from "./Cards.module.css"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../store/store"
-import {cardsApi, CardType} from "../../api/auth-api"
+import {CardType} from "../../api/auth-api"
 import Preloader from "../../common/preloader"
-import {addCardTC, deleteCardTC, updateCardTC} from "./cardsReducer"
+import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "./cardsReducer"
+import {useParams} from 'react-router-dom'
 
 export const Cards = () => {
 
     const dispatch = useDispatch()
     const cards = useSelector<AppRootStateType, Array<CardType> | []>(state => state.cards.cards)
     const serverAnswerStatus = useSelector<AppRootStateType, boolean>(state => state.cards.serverAnswerStatus)
-    const id = useSelector<AppRootStateType, string | undefined>(state => state.packs.packs?.cardPacks[0]._id)
+    const cardsPackId = useSelector<AppRootStateType, string | undefined>(state => state.packs.packs?.cardPacks[0]._id)
 
     const addCard = () => {
         let newTitle = prompt("Enter title", "New question")
         if (newTitle !== null) {
-            dispatch(addCardTC(id!, newTitle))
+            dispatch(addCardTC(cardsPackId!, newTitle))
         }
     }
     const deleteCard = (cardId: string) => {
@@ -29,9 +30,18 @@ export const Cards = () => {
         }
     }
 
+    const {id} = useParams<{ id: string }>()
+
+    useEffect(() => {
+        dispatch(getCardsTC(id))
+    }, [id])
+
     return <div className={s.cards}>
         {serverAnswerStatus
-            ? <div className={s.table}>
+            ? <div className={s.preloader}>
+                <Preloader/>
+            </div>
+            : <div className={s.table}>
                 <div className={s.header}>
                     <div className={s.cell}>Question</div>
                     <div className={s.cell}>Answer</div>
@@ -59,7 +69,8 @@ export const Cards = () => {
                     }
                 </div>
             </div>
-            : <Preloader/>
+
+
         }
     </div>
 }

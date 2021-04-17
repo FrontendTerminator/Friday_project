@@ -154,5 +154,9 @@ export const cardsApi = {
     updateCard(cardId: string, newTitle: string) {
         return instance.put<UpdateCardResponseType>("cards/card", {card: {_id: cardId, question: newTitle}})
             .then(res => res.data)
+    },
+    sendGrade(cardId: string, grade: number) {
+        return instance.put("cards/grade", {grade: grade, card_id: cardId})
     }
 }
+

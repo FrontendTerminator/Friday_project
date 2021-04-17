@@ -49,7 +49,7 @@ export const App = () => {
                                render={() => <NewPassword/>}/>
                         <Route path={PATH.packs}
                                render={() => <Packs/>}/>
-                        <Route path={PATH.cards}
+                        <Route path={PATH.cards + "/:id"}
                                render={() => <Cards/>}/>
                         <Route path={PATH.testPage}
                                render={() => <TestPage/>}/>

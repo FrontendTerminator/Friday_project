@@ -16,7 +16,7 @@ import SuperDoubleRange from "../superComponents/c4-SuperDoubleRange/superDouble
 import Pagination from "./Pagination";
 import {NavLink} from 'react-router-dom';
 import {PATH} from "../../App";
-import {getCardsTC} from "../cards/cardsReducer";
+import {addCurrentPacksIdAC, getCardsTC} from "../cards/cardsReducer";
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
 import {Button} from "@material-ui/core";
@@ -102,7 +102,7 @@ const Packs = () => {
         setSearch(event.currentTarget.value)
     }
     const onCardsClick = (packsId: string) => {
-        dispatch(getCardsTC(packsId))
+        dispatch(addCurrentPacksIdAC(packsId))
     }
 
     const sortMax = () => {
@@ -187,7 +187,7 @@ const Packs = () => {
                                         size={'small'}
                                     > {<UpdateIcon />}</Button>
                                     <NavLink onClick={() => onCardsClick(cardPack._id)}
-                                             to={PATH.cards}>Cards
+                                             to={PATH.cards + "/" + cardPack._id}>Cards
                                     </NavLink>
                                 </div>
                             </div>

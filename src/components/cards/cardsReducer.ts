@@ -4,10 +4,12 @@ import {Dispatch} from "redux";
 export type InitialStateType = {
     cards: Array<CardType>
     serverAnswerStatus: boolean
+    currentPacksId: string
 }
 const initialState: InitialStateType = {
     cards: [],
-    serverAnswerStatus: true
+    serverAnswerStatus: false,
+    currentPacksId: ""
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: cardsReducerActionType): InitialStateType => {
@@ -36,6 +38,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: car
                     }
                 })
             }
+        case "cards/ADD_CURRENT_PACKS_ID":
+            return {...state, currentPacksId: action.packsId}
         default: {
             return state
         }
@@ -51,56 +55,68 @@ export const deleteCardAC = (cardId: string) => ({type: "cards/DELETE_CARD", car
 export const updateCardAC = (cardId: string, newTitle: string) => ({
     type: "cards/UPDATE_CARD", cardId, newTitle
 } as const)
+export const addCurrentPacksIdAC = (packsId: string) => ({type: "cards/ADD_CURRENT_PACKS_ID", packsId} as const)
 
 /*Thunks*/
 export const getCardsTC = (packsId: string) => (dispatch: Dispatch<cardsReducerActionType>) => {
-    dispatch(changeServerAnswerStatusAC(false))
+    dispatch(changeServerAnswerStatusAC(true))
     cardsApi.getCards(packsId)
         .then(res => {
             dispatch(setCardsAC(res.cards))
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
         })
         .catch(error => {
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
             alert(error)
         })
 }
 export const addCardTC = (cardsPackId: string, newTitle: string) => (dispatch: Dispatch<cardsReducerActionType>) => {
-    dispatch(changeServerAnswerStatusAC(false))
+    dispatch(changeServerAnswerStatusAC(true))
     cardsApi.addCard(cardsPackId, newTitle)
         .then(res => {
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
             dispatch(addNewCardAC(res.newCard))
         })
         .catch(error => {
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
             console.log(error)
             alert(error)
         })
 }
 export const deleteCardTC = (cardId: string) => (dispatch: Dispatch<cardsReducerActionType>) => {
-    dispatch(changeServerAnswerStatusAC(false))
+    dispatch(changeServerAnswerStatusAC(true))
     cardsApi.deleteCard(cardId)
         .then(res => {
             dispatch(deleteCardAC(cardId))
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
             console.log(res)
         })
         .catch(error => {
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
             alert(error)
         })
 }
 export const updateCardTC = (cardId: string, newTitle: string) => (dispatch: Dispatch<cardsReducerActionType>) => {
-    dispatch(changeServerAnswerStatusAC(false))
+    dispatch(changeServerAnswerStatusAC(true))
     cardsApi.updateCard(cardId, newTitle)
         .then(res => {
             console.log(res)
             dispatch(updateCardAC(cardId, newTitle))
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
         })
         .catch(error => {
-            dispatch(changeServerAnswerStatusAC(true))
+            dispatch(changeServerAnswerStatusAC(false))
+            alert(error)
+        })
+}
+export const sendGradeTC = (cardId: string, grade: number) => (dispatch: Dispatch<cardsReducerActionType>) => {
+    dispatch(changeServerAnswerStatusAC(true))
+    cardsApi.sendGrade(cardId, grade)
+        .then(res => {
+            dispatch(changeServerAnswerStatusAC(false))
+        })
+        .catch(error => {
+            dispatch(changeServerAnswerStatusAC(false))
             alert(error)
         })
 }
@@ -112,5 +128,6 @@ type cardsReducerActionType =
     | ReturnType<typeof addNewCardAC>
     | ReturnType<typeof deleteCardAC>
     | ReturnType<typeof updateCardAC>
+    | ReturnType<typeof addCurrentPacksIdAC>
 
 
