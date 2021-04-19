@@ -12,12 +12,12 @@ export const Cards = () => {
     const dispatch = useDispatch()
     const cards = useSelector<AppRootStateType, Array<CardType> | []>(state => state.cards.cards)
     const serverAnswerStatus = useSelector<AppRootStateType, boolean>(state => state.cards.serverAnswerStatus)
-    const cardsPackId = useSelector<AppRootStateType, string | undefined>(state => state.packs.packs?.cardPacks[0]._id)
 
     const addCard = () => {
+        debugger
         let newTitle = prompt("Enter title", "New question")
         if (newTitle !== null) {
-            dispatch(addCardTC(cardsPackId!, newTitle))
+            dispatch(addCardTC(id, newTitle))
         }
     }
     const deleteCard = (cardId: string) => {
