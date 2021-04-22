@@ -42,8 +42,7 @@ export const Learn = () => {
         <div className={s.learnBlock}>
 
             <div>
-                <SimpleCard name={card&&card.question} sendGrade={sendGrade} card={card}/>
-
+                <SimpleCard name={card&&card.question} sendGrade={sendGrade} card={card} answer={card && card.answer}/>
             </div>
 
         </div>
