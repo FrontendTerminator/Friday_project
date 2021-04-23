@@ -35,6 +35,8 @@ export const App = () => {
                 <Navigation/>
                 <div>
                     <Switch>
+                        <Route exact path={PATH.startPage}
+                               render={() => <Login/>}/>
                         <Route path={PATH.login}
                                render={() => <Login/>}/>
                         <Route path={PATH.registration}
@@ -55,7 +57,6 @@ export const App = () => {
                                render={() => <TestPage/>}/>
                         <Route path={PATH.learn + "/:id"}
                                render={() => <Learn/>}/>
-                        <Redirect from={PATH.startPage} to={PATH.login}/>
                         <Redirect from={PATH.pageNotFound} to={PATH.page404}/>
                     </Switch>
                 </div>
