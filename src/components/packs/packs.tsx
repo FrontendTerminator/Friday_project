@@ -135,9 +135,10 @@ const Packs = () => {
         </div>
 
         <div style={{color: 'red'}}>{error && error}</div>
-        <div onClick={hideModal} className={modal ? s.popup : s.hide}>
+        <div  className={modal ? s.popup : s.hide}>
             <div className={s.popupContent}>
-                <input value={packValue} onChange={changeValuePack} type="text"/>
+                <span onClick={()=>setModal(false)} className={s.x}>X</span>
+                <input value={packValue}  onChange={changeValuePack} type="text"/>
                 {updateButton ? <SuperButton1 data-update={'update'} onClick={setPack}>Update</SuperButton1> :
                     <SuperButton1 data-update={'add'} onClick={setPack}>Add</SuperButton1>
                 }
